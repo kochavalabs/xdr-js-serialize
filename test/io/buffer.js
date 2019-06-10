@@ -89,9 +89,20 @@ describe('BufferIO finalize', () => {
     buff.write([6])
     buff.write([])
     buff.write([7, 8, 9, 10])
+    buff.read(Buffer.alloc(3))
 
     const result = buff.finalize()
 
     expect(result).to.deep.equal(Buffer.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
+  })
+
+  it('read throws after finalization', () => {
+    const buff = new BufferIO()
+    buff.write([1, 2, 3])
+
+    let toRead = Buffer.alloc(1)
+    buff.finalize()
+
+    expect(() => { buff.read(toRead) }).to.throw()
   })
 })
