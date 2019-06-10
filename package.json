@@ -31,5 +31,7 @@
     "mocha": "^6.0.2",
     "sinon": "^7.3.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "long": "^4.0.0"
+  }
 }
