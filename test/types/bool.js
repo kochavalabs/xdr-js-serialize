@@ -44,9 +44,9 @@ describe('Bool write', () => {
     const io = {}
 
     boolT.write(io, encT)
-    encT.calledWith(io, true)
+    expect(encT.Bool.calledWith(true, io)).to.equal(true)
 
     boolF.write(io, encF)
-    encF.calledWith(io, false)
+    expect(encF.Bool.calledWith(false, io)).to.equal(true)
   })
 })
