@@ -10,11 +10,15 @@ describe('FixedArray constructor', () => {
   it('initialValue set', () => {
     const f = new FixedArray()
     expect(f.value).to.deep.equal([new Int()])
+    expect(f.Type).to.equal(Int)
+    expect(f.length).to.equal(1)
   })
 
   it('passed size and type', () => {
     const f = new FixedArray(2, UInt)
     expect(f.value).to.deep.equal([new UInt(), new UInt()])
+    expect(f.Type).to.equal(UInt)
+    expect(f.length).to.equal(2)
   })
 })
 
