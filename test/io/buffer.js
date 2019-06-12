@@ -96,6 +96,11 @@ describe('BufferIO finalize', () => {
     expect(result).to.deep.equal(Buffer.from([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]))
   })
 
+  it('empty buffer io returns empty buffer', () => {
+    const buff = new BufferIO()
+    expect(buff.finalize()).to.deep.equal(Buffer.alloc(0))
+  })
+
   it('read throws after finalization', () => {
     const buff = new BufferIO()
     buff.write([1, 2, 3])

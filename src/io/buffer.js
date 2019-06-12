@@ -33,9 +33,12 @@ class BufferIO {
   }
 
   finalize () {
-    const totalLength = this._buffers.map(x => x.length).reduce((t, v) => t + v)
     this._buffIndex = 0
     this._arrayIndex = 0
+    if (this._buffers.length === 0) {
+      return Buffer.alloc(0)
+    }
+    const totalLength = this._buffers.map(x => x.length).reduce((t, v) => t + v)
     const result = Buffer.alloc(totalLength)
     this.read(result)
     return result
