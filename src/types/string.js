@@ -1,10 +1,18 @@
 class Str {
-  constructor (initialValue = '') {
+  constructor (initialValue = '', maxLength) {
+    this.maxLength = maxLength || Math.pow(2, 32) - 1
+    if (initialValue.length > this.maxLength) {
+      throw new Error('Initial string too long')
+    }
     this.value = initialValue.toString()
   }
 
   read (io, decoder) {
-    this.value = decoder.Str(io)
+    const result = decoder.Str(io)
+    if (result.length > this.maxLength) {
+      throw new Error('Read length too long')
+    }
+    this.value = result
     return this.value
   }
 
