@@ -10,5 +10,12 @@ export default {
       default:
         return 0
     }
+  },
+
+  readIO: (size, io) => {
+    const result = Buffer.alloc(size)
+    io.read(result)
+    return result
   }
+
 }
