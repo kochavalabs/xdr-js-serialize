@@ -11,7 +11,7 @@ class Option {
 
   read (io, decoder) {
     const result = decoder.Option(this.Type, io)
-    if (result === null && !(result instanceof this.Type)) {
+    if (result !== null && !(result instanceof this.Type)) {
       throw new Error('Returned the wrong type: ' + result)
     }
     this.value = result

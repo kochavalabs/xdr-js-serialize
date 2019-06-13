@@ -29,24 +29,12 @@ describe('Struct constructor', () => {
 
 describe('Struct read', () => {
   it('reads buffer', () => {
-    const dec = EncodeReturn('Struct', [new Int(), new Int(), new Int()])
+    const dec = EncodeReturn('Struct', undefined)
     const s = getStruct()
     const io = {}
     expect(s.read(io, dec)).to.deep.equal([new Int(), new Int(), new Int()])
     expect(s.values).to.deep.equal([new Int(), new Int(), new Int()])
-    expect(dec.Struct.calledWith(s.keys, io)).to.equal(true)
-  })
-
-  it('throws too few values', () => {
-    const dec = EncodeReturn('Struct', [new Int(), new Int()])
-    const s = getStruct()
-    expect(() => s.read(null, dec)).to.throw()
-  })
-
-  it('throws too many values', () => {
-    const dec = EncodeReturn('Struct', [new Int(), new Int(), new Int(), new Int()])
-    const s = getStruct()
-    expect(() => s.read(null, dec)).to.throw()
+    expect(dec.Struct.calledWith(s.keys, s.values, io)).to.equal(true)
   })
 })
 
