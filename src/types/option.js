@@ -1,9 +1,12 @@
 import Int from './int.js'
 
 class Option {
-  constructor (Type = Int) {
+  constructor (Type = Int, value = null) {
     this.Type = Type
-    this.value = null
+    this.value = value
+    if (value !== null && !(value instanceof this.Type)) {
+      throw new Error('Provided the wrong type: ' + value)
+    }
   }
 
   read (io, decoder) {

@@ -9,14 +9,14 @@ import UInt from '../../src/types/uint.js'
 describe('FixedArray constructor', () => {
   it('initialValue set', () => {
     const f = new FixedArray()
-    expect(f.value).to.deep.equal([new Int()])
+    expect(f.values).to.deep.equal([new Int()])
     expect(f.Type).to.equal(Int)
     expect(f.length).to.equal(1)
   })
 
   it('passed size and type', () => {
     const f = new FixedArray(2, UInt)
-    expect(f.value).to.deep.equal([new UInt(), new UInt()])
+    expect(f.values).to.deep.equal([new UInt(), new UInt()])
     expect(f.Type).to.equal(UInt)
     expect(f.length).to.equal(2)
   })
@@ -28,7 +28,7 @@ describe('FixedArray read', () => {
     const f = new FixedArray()
     const io = {}
     expect(f.read(io, dec)).to.deep.equal(Buffer.from([1, 1, 1, 1]))
-    expect(f.value).to.deep.equal(Buffer.from([1, 1, 1, 1]))
+    expect(f.values).to.deep.equal(Buffer.from([1, 1, 1, 1]))
     expect(dec.FixedArray.calledWith(1, Int, io)).to.equal(true)
   })
 })

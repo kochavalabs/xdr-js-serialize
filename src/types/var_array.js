@@ -4,7 +4,7 @@ class VarArray {
   constructor (maxLength = 1, Type = Int) {
     this.maxLength = maxLength
     this.Type = Type
-    this.value = []
+    this.values = []
   }
 
   read (io, decoder) {
@@ -12,12 +12,12 @@ class VarArray {
     if (result.length > this.maxLength) {
       throw new Error(`Length(${result.length}) was longer than max(${this.maxLength})`)
     }
-    this.value = result
-    return this.value
+    this.values = result
+    return this.values
   }
 
   write (io, encoder) {
-    encoder.VarArray(this.value, io)
+    encoder.VarArray(this.values, io)
   }
 }
 
