@@ -14,7 +14,7 @@ function getEnum () {
       1: 'One',
       2: 'Two',
       3: 'Three'
-    })
+    }, 1)
 }
 
 function getUnion () {
@@ -36,7 +36,7 @@ describe('Union constructor', () => {
     const u = getUnion()
     expect(u.enum).to.deep.equal(getEnum())
     expect(u.enumTypes).to.deep.equal([Void, Int, Int, UInt])
-    expect(u.value).to.deep.equal(new Void())
+    expect(u.value).to.deep.equal(new Int())
   })
 
   it('throws with bad values', () => {
@@ -62,6 +62,6 @@ describe('Union write', () => {
     const u = getUnion()
 
     u.write(io, enc)
-    expect(enc.Union.calledWith(getEnum(), new Void(), io)).to.equal(true)
+    expect(enc.Union.calledWith(getEnum(), new Int(), io)).to.equal(true)
   })
 })

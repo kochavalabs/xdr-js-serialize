@@ -13,7 +13,7 @@ class FixedArray {
   }
 
   write (io, encoder) {
-    encoder.FixedArray(this.values, this.length, this.Type, io)
+    encoder.FixedArray(this.values, this.length, io)
   }
 }
 

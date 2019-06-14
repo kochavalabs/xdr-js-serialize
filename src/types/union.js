@@ -8,7 +8,7 @@ class Union {
     if (Object.keys(this.enum.values).length !== this.enumTypes.length) {
       throw new Error('Mismatch between enumTypes and enum values')
     }
-    this.value = new enumTypes[0]()
+    this.value = new enumTypes[this.enum.value]()
   }
 
   read (io, decoder) {

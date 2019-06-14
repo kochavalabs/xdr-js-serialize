@@ -25,7 +25,7 @@ class XdrEncode {
   Int (value, io) {
     io.write(value)
   }
-  FixedArray (values, length, type, io) {
+  FixedArray (values, length, io) {
     if (values.length !== length) {
       throw new Error(`FixedArray layngth did not match expected(${length}) actual ${values.length}`)
     }

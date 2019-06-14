@@ -40,6 +40,6 @@ describe('FixedArray write', () => {
     const i = new FixedArray()
 
     i.write(io, enc)
-    expect(enc.FixedArray.calledWith([new Int()], 1, Int, io)).to.equal(true)
+    expect(enc.FixedArray.calledWith([new Int()], 1, io)).to.equal(true)
   })
 })
