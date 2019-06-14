@@ -1,5 +1,6 @@
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
+import itParam from 'mocha-param'
 
 import BufferIO from '../../src/io/buffer.js'
 
@@ -110,4 +111,22 @@ describe('BufferIO finalize', () => {
 
     expect(() => { buff.read(toRead) }).to.throw()
   })
+})
+
+const equalsTwo = (x) => { return x === 2 }
+const isEven = (x) => { return x % 2 === 0 }
+
+const scanTests = [
+  { n: '0', i: [Buffer.from([1, 2, 3])], b: equalsTwo, o: Buffer.from([1, 2]) },
+  { n: '1', i: [Buffer.from([1, 1, 3]), Buffer.from([7, 7, 7, 4, 10])], b: isEven, o: Buffer.from([1, 1, 3, 7, 7, 7, 4]) }
+]
+
+describe('BufferIO scanRead', () => {
+  itParam(
+    '${value.n}', // eslint-disable-line
+    scanTests, (value) => {
+      const buff = new BufferIO()
+      value.i.forEach((x) => buff.write(x))
+      expect(buff.scanRead(value.b)).to.deep.equal(value.o)
+    })
 })

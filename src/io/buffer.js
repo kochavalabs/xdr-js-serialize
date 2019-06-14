@@ -32,6 +32,25 @@ class BufferIO {
     this._readIndexed(toRead)
   }
 
+  _scan (boolCheck, bI, aI, byteCount) {
+    if (aI >= this._buffers.length) {
+      throw new Error('Not enough in buffer to continue reading.')
+    }
+    const remainder = this._buffers[aI].length - bI
+    let toRead = 0
+    for (let i = bI; i < remainder; i++) {
+      toRead++
+      if (boolCheck(this._buffers[aI][i])) return toRead + byteCount
+    }
+    return this._scan(boolCheck, 0, aI + 1, byteCount + toRead)
+  }
+
+  scanRead (boolCheck) {
+    const toRead = Buffer.alloc(this._scan(boolCheck, this._buffIndex, this._arrayIndex, 0))
+    this.read(toRead)
+    return toRead
+  }
+
   finalize () {
     this._buffIndex = 0
     this._arrayIndex = 0
