@@ -1,1 +1,2 @@
-# JS-XDR
+# js-xdr
+Javascript XDR Codec
