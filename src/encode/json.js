@@ -76,7 +76,8 @@ class JsonEncode {
     this.FixedArray(values, values.length, io)
   }
   VarOpaque (values, io) {
-    this.FixedOpaque(values, values.length, io)
+    const stringValue = values.toString('base64')
+    io.write(Buffer.from(`"${stringValue}"`, 'ascii'))
   }
   Float (value, io) {
     io.write(Buffer.from(value.readFloatBE().toString(), 'ascii'))

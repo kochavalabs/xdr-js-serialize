@@ -1,8 +1,11 @@
 class BufferIO {
-  constructor () {
+  constructor (initialBuffer) {
     this._buffers = []
     this._buffIndex = 0
     this._arrayIndex = 0
+    if (initialBuffer) {
+      this._buffers.push(initialBuffer)
+    }
   }
 
   write (toWrite, encoding = 'base64') {
@@ -34,19 +37,23 @@ class BufferIO {
 
   _scan (boolCheck, bI, aI, byteCount) {
     if (aI >= this._buffers.length) {
-      throw new Error('Not enough in buffer to continue reading.')
+      return byteCount + 1
     }
-    const remainder = this._buffers[aI].length - bI
+    const buffLength = this._buffers[aI].length
     let toRead = 0
-    for (let i = bI; i < remainder; i++) {
+    for (let i = bI; i < buffLength; i++) {
       toRead++
-      if (boolCheck(this._buffers[aI][i])) return toRead + byteCount
+      if (boolCheck(this._buffers[aI][i])) {
+        return toRead + byteCount
+      }
     }
     return this._scan(boolCheck, 0, aI + 1, byteCount + toRead)
   }
 
-  scanRead (boolCheck) {
-    const toRead = Buffer.alloc(this._scan(boolCheck, this._buffIndex, this._arrayIndex, 0))
+  scanRead (boolCheck, inclusive = true) {
+    let bufferSize = this._scan(boolCheck, this._buffIndex, this._arrayIndex, 0)
+    if (!inclusive) bufferSize--
+    const toRead = Buffer.alloc(bufferSize)
     this.read(toRead)
     return toRead
   }

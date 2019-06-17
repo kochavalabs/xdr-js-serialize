@@ -10,13 +10,13 @@ describe('Option constructor', () => {
   it('initialValue set', () => {
     const f = new Option()
     expect(f.value).to.equal(null)
-    expect(f.Type).to.equal(Int)
+    expect(f.type).to.deep.equal(new Int())
   })
 
   it('passed type', () => {
-    const f = new Option(UInt)
+    const f = new Option(new UInt())
     expect(f.value).to.equal(null)
-    expect(f.Type).to.equal(UInt)
+    expect(f.type).to.deep.equal(new UInt())
   })
 })
 
@@ -27,7 +27,7 @@ describe('Option read', () => {
     const io = {}
     expect(f.read(io, dec)).to.deep.equal(new Int())
     expect(f.value).to.deep.equal(new Int())
-    expect(dec.Option.calledWith(Int, io)).to.equal(true)
+    expect(dec.Option.calledWith(new Int(), io)).to.equal(true)
   })
 })
 

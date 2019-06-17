@@ -2,13 +2,13 @@ import Enum from './enum.js'
 import Void from './void.js'
 
 class Union {
-  constructor (enumT = null, enumTypes = [Void]) {
+  constructor (enumT = null, enumTypes = [new Void()]) {
     this.enum = enumT || new Enum()
     this.enumTypes = enumTypes
     if (Object.keys(this.enum.values).length !== this.enumTypes.length) {
       throw new Error('Mismatch between enumTypes and enum values')
     }
-    this.value = new enumTypes[this.enum.value]()
+    this.value = enumTypes[this.enum.value]
   }
 
   read (io, decoder) {

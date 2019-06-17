@@ -20,7 +20,7 @@ function getEnum () {
 function getUnion () {
   return new Union(
     getEnum(),
-    [Void, Int, Int, UInt]
+    [new Void(), new Int(), new Int(), new UInt()]
   )
 }
 
@@ -28,14 +28,14 @@ describe('Union constructor', () => {
   it('initial values set', () => {
     const u = new Union()
     expect(u.enum).to.deep.equal(new Enum())
-    expect(u.enumTypes).to.deep.equal([Void])
+    expect(u.enumTypes).to.deep.equal([new Void()])
     expect(u.value).to.deep.equal(new Void())
   })
 
   it('passed size and type', () => {
     const u = getUnion()
     expect(u.enum).to.deep.equal(getEnum())
-    expect(u.enumTypes).to.deep.equal([Void, Int, Int, UInt])
+    expect(u.enumTypes).to.deep.equal([new Void(), new Int(), new Int(), new UInt()])
     expect(u.value).to.deep.equal(new Int())
   })
 
@@ -57,7 +57,8 @@ describe('Union read', () => {
 
 describe('Union write', () => {
   it('write passes value', () => {
-    const enc = EncodeReturn('Union', [new Int()])
+    const toPass = new Int()
+    const enc = EncodeReturn('Union', [toPass])
     const io = {}
     const u = getUnion()
 

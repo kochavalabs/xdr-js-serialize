@@ -129,4 +129,13 @@ describe('BufferIO scanRead', () => {
       value.i.forEach((x) => buff.write(x))
       expect(buff.scanRead(value.b)).to.deep.equal(value.o)
     })
+  it('multiple reads works', () => {
+    const test = Buffer.from([1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3])
+    const buff = new BufferIO()
+    buff.write(test)
+    expect(buff.scanRead((c) => c === 3)).to.deep.equal(Buffer.from([1, 2, 3]))
+    expect(buff.scanRead((c) => c === 3)).to.deep.equal(Buffer.from([1, 2, 3]))
+    expect(buff.scanRead((c) => c === 3)).to.deep.equal(Buffer.from([1, 2, 3]))
+    expect(buff.scanRead((c) => c === 3)).to.deep.equal(Buffer.from([1, 2, 3]))
+  })
 })

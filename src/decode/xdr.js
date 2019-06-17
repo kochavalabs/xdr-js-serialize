@@ -11,14 +11,13 @@ class XdrDecode {
     return str.toString('ascii')
   }
 
-  Option (Type, io) {
+  Option (type, io) {
     const opt = utils.readIO(4, io)
     if (opt.equals(falseBuff)) {
       return null
     } else if (opt.equals(trueBuff)) {
-      const result = new Type()
-      result.read(io, this)
-      return result
+      type.read(io, this)
+      return type
     } else {
       throw new Error('Invalid opt identifier: ' + opt)
     }
@@ -70,9 +69,8 @@ class XdrDecode {
   Double (io) { return utils.readIO(8, io) }
   Union (enumT, enumTypes, io) {
     enumT.read(io, this)
-    const result = new enumTypes[enumT.value]()
-    result.read(io, this)
-    return result
+    enumTypes[enumT.value].read(io, this)
+    return enumTypes[enumT.value]
   }
   Struct (keys, values, io) {
     values.forEach((v) => { v.read(io, this) })

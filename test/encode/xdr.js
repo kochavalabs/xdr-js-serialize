@@ -47,7 +47,7 @@ const passTests = [
   { n: 'Float', t: new types.Float(1), e: Buffer.from([63, 128, 0, 0]) },
   { n: 'Double', t: new types.Double(1), e: Buffer.from([63, 240, 0, 0, 0, 0, 0, 0]) },
   { n: 'Union Default', t: new types.Union(), e: Buffer.alloc(4) },
-  { n: 'Union Basic', t: new types.Union(testEnum, [types.Int, types.Int, types.Int]), e: Buffer.from([0, 0, 0, 2, 0, 0, 0, 0]) },
+  { n: 'Union Basic', t: new types.Union(testEnum, [new types.Int(), new types.Int(), new types.Int()]), e: Buffer.from([0, 0, 0, 2, 0, 0, 0, 0]) },
   { n: 'Enum Default', t: new types.Enum(), e: Buffer.alloc(4) },
   { n: 'Enum Basic', t: testEnum, e: Buffer.from([0, 0, 0, 2]) },
   { n: 'Struct Default', t: new types.Struct(), e: Buffer.alloc(0) },

@@ -1,19 +1,13 @@
 import Int from './int.js'
 
 class Option {
-  constructor (Type = Int, value = null) {
-    this.Type = Type
+  constructor (type = new Int(), value = null) {
+    this.type = type
     this.value = value
-    if (value !== null && !(value instanceof this.Type)) {
-      throw new Error('Provided the wrong type: ' + value)
-    }
   }
 
   read (io, decoder) {
-    const result = decoder.Option(this.Type, io)
-    if (result !== null && !(result instanceof this.Type)) {
-      throw new Error('Returned the wrong type: ' + result)
-    }
+    const result = decoder.Option(this.type, io)
     this.value = result
     return this.value
   }
