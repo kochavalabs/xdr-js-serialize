@@ -44,7 +44,7 @@ const passTests = [
   { n: 'Struct Basic', t: new types.Struct(['1', '2'], [new types.Int(), new types.UInt()]), io: Buffer.from([0, 0, 0, 2, 0, 0, 0, 4]), e: [new types.Int(2), new types.UInt(4)] }
 ]
 
-describe('Xdr Encode Pass', () => {
+describe('Xdr Decode Pass', () => {
   itParam(
     '${value.n}', // eslint-disable-line
     passTests, (value) => {
@@ -74,7 +74,7 @@ const failTests = [
   { n: 'Struct Bad', t: new types.Struct(['1', '2'], [new types.Int(), new types.UInt()]), io: Buffer.from([0, 0, 0, 2, 0, 0, 0]) }
 ]
 
-describe('Xdr Encode Fail', () => {
+describe('Xdr Decode Fail', () => {
   itParam(
     '${value.n}', // eslint-disable-line
     failTests, (value) => {
