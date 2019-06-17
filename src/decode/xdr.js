@@ -18,7 +18,6 @@ class XdrDecode {
     } else if (opt.equals(trueBuff)) {
       const result = new Type()
       result.read(io, this)
-      console.log(result)
       return result
     } else {
       throw new Error('Invalid opt identifier: ' + opt)
