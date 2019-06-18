@@ -69,8 +69,8 @@ class XdrDecode {
   Double (io) { return utils.readIO(8, io) }
   Union (enumT, enumTypes, io) {
     enumT.read(io, this)
-    enumTypes[enumT.value].read(io, this)
-    return enumTypes[enumT.value]
+    enumTypes[enumT.toString()].read(io, this)
+    return enumTypes[enumT.toString()]
   }
   Struct (keys, values, io) {
     values.forEach((v) => { v.read(io, this) })

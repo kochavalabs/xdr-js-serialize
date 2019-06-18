@@ -15,6 +15,14 @@ const testEnum = new types.Enum({
   2: 'Two'
 }, 2)
 
+const testUnion = new types.Union(testEnum,
+  {
+    'Zero': new types.Int(),
+    'One': new types.Int(),
+    'Two': new types.Hyper()
+  }
+)
+
 const passTests = [
   { n: 'String', t: new types.Str('', 7), io: Buffer.from([0, 0, 0, 5, 104, 101, 108, 108, 111, 0, 0, 0]), e: 'hello' },
   { n: 'Option false', t: new types.Option(), io: Buffer.alloc(4), e: null },
@@ -37,7 +45,7 @@ const passTests = [
   { n: 'Float', t: new types.Float(), io: Buffer.from([0, 0, 0, 1]), e: Buffer.from([0, 0, 0, 1]) },
   { n: 'Double', t: new types.Double(), io: Buffer.from([0, 0, 0, 0, 0, 0, 0, 1]), e: Buffer.from([0, 0, 0, 0, 0, 0, 0, 1]) },
   { n: 'Union Default', t: new types.Union(), io: Buffer.from([0, 0, 0, 0]), e: new types.Void() },
-  { n: 'Union Basic', t: new types.Union(testEnum, [new types.Int(), new types.Int(), new types.Int()]), io: Buffer.from([0, 0, 0, 2, 0, 0, 0, 4]), e: new types.Int(4) },
+  { n: 'Union Basic', t: testUnion, io: Buffer.from([0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 4]), e: new types.Hyper(4) },
   { n: 'Enum Default', t: new types.Enum(), io: Buffer.alloc(4), e: 0 },
   { n: 'Enum Basic', t: testEnum, io: Buffer.from([0, 0, 0, 2]), e: 2 },
   { n: 'Struct Default', t: new types.Struct(), io: Buffer.alloc(0), e: [] },

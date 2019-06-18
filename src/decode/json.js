@@ -200,8 +200,9 @@ class JsonDecode {
     const union = JSON.parse(scanFullStruct(io).toString('ascii'))
     const newIO = new BufferIO()
     newIO.write(Buffer.from(JSON.stringify(union.value)), 'ascii')
-    enumTypes[union.enum].read(newIO, this)
-    return enumTypes[union.enum]
+    enumT.value = union.enum
+    enumTypes[enumT.toString()].read(newIO, this)
+    return enumTypes[enumT.toString()]
   }
   Struct (keys, values, io) {
     scanChar(io, lBrace)
