@@ -41,6 +41,7 @@ const passTests = [
   { n: 'Void', t: new types.Void(), io: '""', e: null },
   { n: 'VarArray Default', t: new types.VarArray(), io: '[100]', e: [new types.Int(100)] },
   { n: 'VarArray Basic', t: new types.VarArray(3, () => new types.Int()), io: '[6,22,-123]', e: [new types.Int(6), new types.Int(22), new types.Int(-123)] },
+  { n: 'VarArray Empty', t: new types.VarArray(3, () => new types.Int()), io: '[]', e: [] },
   { n: 'VarOpaque', t: new types.VarOpaque(8), io: '"AAECAwQFBgc="', e: Buffer.from([0, 1, 2, 3, 4, 5, 6, 7]) },
   { n: 'Float', t: new types.Float(), io: '1.0', e: Buffer.from([0x3f, 0x80, 0, 0]) },
   { n: 'Double', t: new types.Double(), io: '1.0', e: Buffer.from([0x3f, 0xf0, 0, 0, 0, 0, 0, 0]) },

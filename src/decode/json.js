@@ -153,6 +153,10 @@ class JsonDecode {
   VarArray (typeFunc, io) {
     let sChar = scanChar(io, lBracket)
     const values = []
+    if (io.peek() === rBracket) {
+      io.read(Buffer.alloc(1))
+      return []
+    }
     while (sChar !== rBracket) {
       const val = typeFunc()
       val.read(io, this)

@@ -58,6 +58,15 @@ class BufferIO {
     return toRead
   }
 
+  peek () {
+    if (this._buffers[this._arrayIndex] !== undefined) {
+      if (this._buffers[this._arrayIndex][this._buffIndex] !== undefined) {
+        return this._buffers[this._arrayIndex][this._buffIndex]
+      }
+    }
+    return null
+  }
+
   finalize () {
     this._buffIndex = 0
     this._arrayIndex = 0
