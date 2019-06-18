@@ -2,14 +2,14 @@ import AddFormats from './formats.js'
 import Int from './int.js'
 
 class VarArray {
-  constructor (maxLength = 1, Type = Int) {
+  constructor (maxLength = 1, typeFunc) {
     this.maxLength = maxLength
-    this.Type = Type
+    this.typeFunc = typeFunc || (() => { return new Int() })
     this.values = []
   }
 
   read (io, decoder) {
-    const result = decoder.VarArray(this.Type, io)
+    const result = decoder.VarArray(this.typeFunc, io)
     if (result.length > this.maxLength) {
       throw new Error(`Length(${result.length}) was longer than max(${this.maxLength})`)
     }

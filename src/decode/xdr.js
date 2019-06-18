@@ -31,10 +31,10 @@ class XdrDecode {
 
   Hyper (io) { return utils.readIO(8, io) }
 
-  FixedArray (length, Type, io) {
+  FixedArray (length, typeFunc, io) {
     const result = []
     for (let i = 0; i < length; i++) {
-      const toRead = new Type()
+      const toRead = typeFunc()
       toRead.read(io, this)
       result.push(toRead)
     }
@@ -46,9 +46,9 @@ class XdrDecode {
     utils.readIO(utils.calculatePadding(length), io)
     return result
   }
-  VarArray (Type, io) {
+  VarArray (typeFunc, io) {
     const length = utils.readIO(4, io).readUInt32BE()
-    return this.FixedArray(length, Type, io)
+    return this.FixedArray(length, typeFunc, io)
   }
   VarOpaque (io) {
     const length = utils.readIO(4, io).readUInt32BE()

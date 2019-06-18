@@ -43,7 +43,7 @@ const passTests = [
   { n: 'FixedOpaque Hex', t: fixedOpaque, e: '"00010203"' },
   { n: 'FixedOpaque Base64', t: new types.FixedOpaque(65), e: baseStr },
   { n: 'FixedArray Default', t: new types.FixedArray(), e: '[0]' },
-  { n: 'FixedArray Basic', t: new types.FixedArray(2, types.Hyper), e: '["0","0"]' },
+  { n: 'FixedArray Basic', t: new types.FixedArray(2, () => new types.Hyper()), e: '["0","0"]' },
   { n: 'VarArray Default', t: new types.VarArray(), e: '[]' },
   { n: 'VarArray Basic', t: testVarArray, e: '["1","2"]' },
   { n: 'VarOpaque Default', t: new types.VarOpaque(), e: '""' },

@@ -38,7 +38,7 @@ const passTests = [
   { n: 'FixedOpaque No Padding', t: new types.FixedOpaque(8), e: Buffer.alloc(8) },
   { n: 'FixedOpaque Padding', t: new types.FixedOpaque(10), e: Buffer.alloc(12) },
   { n: 'FixedArray Default', t: new types.FixedArray(), e: Buffer.alloc(4) },
-  { n: 'FixedArray Basic', t: new types.FixedArray(2, types.Int), e: Buffer.alloc(8) },
+  { n: 'FixedArray Basic', t: new types.FixedArray(2, () => new types.Int()), e: Buffer.alloc(8) },
   { n: 'VarArray Empty', t: new types.VarArray(), e: Buffer.alloc(4) },
   { n: 'VarArray Non Empty', t: testVarArray, e: Buffer.from([0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0, 2]) },
   { n: 'VarOpaque Empty', t: new types.VarOpaque(), e: Buffer.alloc(4) },

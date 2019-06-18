@@ -118,11 +118,11 @@ class JsonDecode {
     const value = scanQuotes(io)
     return Buffer.from(Long.fromString(value, false).toBytesBE())
   }
-  FixedArray (length, Type, io) {
+  FixedArray (length, typeFunc, io) {
     scanChar(io, lBracket)
     const values = []
     for (let i = 0; i < length - 1; i++) {
-      const val = new Type()
+      const val = typeFunc()
       val.read(io, this)
       values.push(val)
       if (scanList(io)[0] !== comma) {
@@ -131,7 +131,7 @@ class JsonDecode {
     }
 
     if (length !== 0) {
-      const val = new Type()
+      const val = typeFunc()
       val.read(io, this)
       values.push(val)
     }
@@ -150,11 +150,11 @@ class JsonDecode {
     }
     return result
   }
-  VarArray (Type, io) {
+  VarArray (typeFunc, io) {
     let sChar = scanChar(io, lBracket)
     const values = []
     while (sChar !== rBracket) {
-      const val = new Type()
+      const val = typeFunc()
       val.read(io, this)
       values.push(val)
       sChar = scanList(io)[0]
