@@ -1,3 +1,4 @@
+import AddFormats from './formats.js'
 import Enum from './enum.js'
 import Void from './void.js'
 
@@ -20,5 +21,7 @@ class Union {
     encoder.Union(this.enum, this.value, io)
   }
 }
+
+AddFormats(Union)
 
 export default Union

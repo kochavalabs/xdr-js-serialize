@@ -1,3 +1,4 @@
+import AddFormats from './formats.js'
 import Int from './int.js'
 
 class VarArray {
@@ -20,5 +21,7 @@ class VarArray {
     encoder.VarArray(this.values, io)
   }
 }
+
+AddFormats(VarArray)
 
 export default VarArray

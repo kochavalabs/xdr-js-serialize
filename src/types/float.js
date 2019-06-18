@@ -1,3 +1,5 @@
+import AddFormats from './formats.js'
+
 class Float {
   constructor (initialValue = 0.0) {
     this.value = Buffer.alloc(4)
@@ -13,5 +15,7 @@ class Float {
     encoder.Float(this.value, io)
   }
 }
+
+AddFormats(Float)
 
 export default Float

@@ -1,3 +1,5 @@
+import AddFormats from './formats.js'
+
 class Void {
   read (io, decoder) {
     decoder.Void(io)
@@ -8,5 +10,7 @@ class Void {
     encoder.Void(io)
   }
 }
+
+AddFormats(Void)
 
 export default Void

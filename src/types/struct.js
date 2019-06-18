@@ -1,3 +1,5 @@
+import AddFormats from './formats.js'
+
 class Struct {
   constructor (keys = [], values = []) {
     if (keys.length !== values.length) {
@@ -16,5 +18,7 @@ class Struct {
     encoder.Struct(this.keys, this.values, io)
   }
 }
+
+AddFormats(Struct)
 
 export default Struct

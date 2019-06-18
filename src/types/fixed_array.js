@@ -1,3 +1,4 @@
+import AddFormats from './formats.js'
 import Int from './int.js'
 
 class FixedArray {
@@ -16,5 +17,7 @@ class FixedArray {
     encoder.FixedArray(this.values, this.length, io)
   }
 }
+
+AddFormats(FixedArray)
 
 export default FixedArray

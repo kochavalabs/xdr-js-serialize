@@ -1,3 +1,4 @@
+import AddFormats from './formats.js'
 import Int from './int.js'
 
 class Option {
@@ -16,5 +17,7 @@ class Option {
     encoder.Option(this.value, io)
   }
 }
+
+AddFormats(Option)
 
 export default Option

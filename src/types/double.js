@@ -1,3 +1,5 @@
+import AddFormats from './formats.js'
+
 class Double {
   constructor (initialValue = 0.0) {
     this.value = Buffer.alloc(8)
@@ -13,5 +15,7 @@ class Double {
     encoder.Double(this.value, io)
   }
 }
+
+AddFormats(Double)
 
 export default Double

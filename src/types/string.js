@@ -1,3 +1,5 @@
+import AddFormats from './formats.js'
+
 class Str {
   constructor (initialValue = '', maxLength) {
     this.maxLength = maxLength || Math.pow(2, 32) - 1
@@ -20,5 +22,7 @@ class Str {
     encoder.Str(this.value, io)
   }
 }
+
+AddFormats(Str)
 
 export default Str

@@ -1,3 +1,4 @@
+import AddFormats from './formats.js'
 import Long from 'long'
 
 class Hyper {
@@ -18,5 +19,7 @@ class Hyper {
     encoder.Hyper(this.value, io)
   }
 }
+
+AddFormats(Hyper)
 
 export default Hyper

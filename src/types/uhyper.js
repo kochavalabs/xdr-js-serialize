@@ -1,3 +1,4 @@
+import AddFormats from './formats.js'
 import Long from 'long'
 
 class UHyper {
@@ -21,5 +22,7 @@ class UHyper {
     encoder.UHyper(this.value, io)
   }
 }
+
+AddFormats(UHyper)
 
 export default UHyper

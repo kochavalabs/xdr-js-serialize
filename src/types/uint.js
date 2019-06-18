@@ -1,3 +1,5 @@
+import AddFormats from './formats.js'
+
 class UInt {
   constructor (initialValue = 0) {
     this.value = Buffer.alloc(4)
@@ -13,5 +15,7 @@ class UInt {
     encoder.UInt(this.value, io)
   }
 }
+
+AddFormats(UInt)
 
 export default UInt

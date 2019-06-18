@@ -1,3 +1,5 @@
+import AddFormats from './formats.js'
+
 class VarOpaque {
   constructor (maxLength = 1) {
     this.maxLength = maxLength
@@ -17,5 +19,7 @@ class VarOpaque {
     encoder.VarOpaque(this.value, io)
   }
 }
+
+AddFormats(VarOpaque)
 
 export default VarOpaque

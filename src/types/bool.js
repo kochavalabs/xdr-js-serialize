@@ -1,3 +1,5 @@
+import AddFormats from './formats.js'
+
 class Bool {
   constructor (initialValue = false) {
     if (initialValue.toLowerCase && initialValue.toLowerCase() === 'false') {
@@ -16,5 +18,7 @@ class Bool {
     encoder.Bool(this.value, io)
   }
 }
+
+AddFormats(Bool)
 
 export default Bool

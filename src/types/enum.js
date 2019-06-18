@@ -1,3 +1,5 @@
+import AddFormats from './formats.js'
+
 class Enum {
   constructor (values = { 0: 'None' }, initialValue = 0) {
     this.values = values
@@ -24,5 +26,7 @@ class Enum {
     return this.values[this.value]
   }
 }
+
+AddFormats(Enum)
 
 export default Enum
