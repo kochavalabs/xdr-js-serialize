@@ -8,7 +8,7 @@ describe('VarOpaque constructor', () => {
   it('initialValue set', () => {
     const v = new VarOpaque()
     expect(v.value).to.deep.equal(Buffer.alloc(0))
-    expect(v.maxLength).to.equal(1)
+    expect(v.maxLength).to.equal(Math.pow(2, 32) - 1)
   })
 
   it('passed size and type', () => {
@@ -30,7 +30,7 @@ describe('VarOpaque read', () => {
 
   it('length throws', () => {
     const dec = EncodeReturn('VarOpaque', Buffer.alloc(2))
-    const v = new VarOpaque()
+    const v = new VarOpaque(1)
     const io = {}
     expect(() => { v.read(io, dec) }).to.throw()
   })

@@ -1,8 +1,8 @@
 import AddFormats from './formats.js'
 
 class VarOpaque {
-  constructor (maxLength = 1) {
-    this.maxLength = maxLength
+  constructor (maxLength) {
+    this.maxLength = maxLength || Math.pow(2, 32) - 1
     this.value = Buffer.alloc(0)
   }
 
