@@ -210,7 +210,7 @@ class JsonDecode {
       const key = scanQuotes(io)
       const index = keys.indexOf(key)
       if (index < 0) {
-        throw new Error('Invalid strct key: ' + key)
+        throw new Error('Invalid struct key: ' + key)
       }
       scanChar(io, colon)
       values[index].read(io, this)
