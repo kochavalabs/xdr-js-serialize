@@ -29,7 +29,7 @@ class JsonEncode {
     io.write(Buffer.from('}', 'ascii'))
   }
   UInt (value, io) {
-    const result = value.readUInt32BE()
+    const result = value.readUInt32BE(0)
     io.write(Buffer.from(`${result}`, 'ascii'))
   }
   UHyper (value, io) {

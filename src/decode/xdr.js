@@ -4,7 +4,7 @@ const falseBuff = Buffer.from([0, 0, 0, 0])
 
 class XdrDecode {
   Str (io) {
-    const size = utils.readIO(4, io).readUInt32BE()
+    const size = utils.readIO(4, io).readUInt32BE(0)
     const str = Buffer.alloc(size)
     io.read(str)
     utils.readIO(utils.calculatePadding(size), io)
@@ -47,11 +47,11 @@ class XdrDecode {
     return result
   }
   VarArray (typeFunc, io) {
-    const length = utils.readIO(4, io).readUInt32BE()
+    const length = utils.readIO(4, io).readUInt32BE(0)
     return this.FixedArray(length, typeFunc, io)
   }
   VarOpaque (io) {
-    const length = utils.readIO(4, io).readUInt32BE()
+    const length = utils.readIO(4, io).readUInt32BE(0)
     return this.FixedOpaque(length, io)
   }
   Bool (io) {
@@ -76,7 +76,7 @@ class XdrDecode {
     values.forEach((v) => { v.read(io, this) })
   }
   Enum (io) {
-    const val = utils.readIO(4, io).readUInt32BE()
+    const val = utils.readIO(4, io).readInt32BE(0)
     return val
   }
 }
