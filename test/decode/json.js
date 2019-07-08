@@ -50,7 +50,8 @@ const passTests = [
   { n: 'Enum Default', t: new types.Enum(), io: '0', e: 0 },
   { n: 'Enum Basic', t: testEnum, io: '2', e: 2 },
   { n: 'Struct Default', t: new types.Struct(), io: '{}', e: [] },
-  { n: 'Struct Basic', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3,"2":"2"}', e: [new types.Int(-3), new types.Hyper(2)] }
+  { n: 'Struct Basic', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3,"2":"2"}', e: [new types.Int(-3), new types.Hyper(2)] },
+  { n: 'Struct Empty Str', t: new types.Struct(['1', '2'], [new types.Str(), new types.Str()]), io: '{"1":"","2":""}', e: [new types.Str(''), new types.Str('')] }
 ]
 
 describe('Json Decode Pass', () => {

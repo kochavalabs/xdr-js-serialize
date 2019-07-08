@@ -8,8 +8,6 @@ class Union {
     this.enumTypes = enumTypes
     for (const key in this.enum.values) {
       if (!(this.enum.values[key] in this.enumTypes)) {
-        console.log(key)
-        console.log(this.enumTypes)
         throw new Error('Mismatch between enumTypes and enum values')
       }
     }
