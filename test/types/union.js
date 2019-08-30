@@ -21,10 +21,10 @@ function getUnion () {
   return new Union(
     getEnum(),
     {
-      'Zero': new Void(),
-      'One': new Int(),
-      'Two': new Int(),
-      'Three': new UInt()
+      'Zero': () => { return new Void() },
+      'One': () => { return new Int() },
+      'Two': () => { return new Int() },
+      'Three': () => { return new UInt() }
     }
   )
 }
@@ -33,19 +33,12 @@ describe('Union constructor', () => {
   it('initial values set', () => {
     const u = new Union()
     expect(u.enum).to.deep.equal(new Enum())
-    expect(u.enumTypes).to.deep.equal({ 'None': new Void() })
     expect(u.value).to.deep.equal(new Void())
   })
 
   it('passed size and type', () => {
     const u = getUnion()
     expect(u.enum).to.deep.equal(getEnum())
-    expect(u.enumTypes).to.deep.equal({
-      'Zero': new Void(),
-      'One': new Int(),
-      'Two': new Int(),
-      'Three': new UInt()
-    })
     expect(u.value).to.deep.equal(new Int())
   })
 
