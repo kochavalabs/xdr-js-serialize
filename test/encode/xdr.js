@@ -26,9 +26,9 @@ const testEnum = new types.Enum({
 
 const testUnion = new types.Union(testEnum,
   {
-    'Zero': new types.Int(),
-    'One': new types.Int(),
-    'Two': new types.Hyper()
+    'Zero': () => { return new types.Int() },
+    'One': () => { return new types.Int() },
+    'Two': () => { return new types.Hyper() }
   }
 )
 
