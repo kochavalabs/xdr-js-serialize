@@ -1,2 +1,2 @@
-# js-xdr
+# xdr-js-serialize
 Javascript XDR Codec

@@ -1,5 +1,5 @@
 {
-  "name": "js-xdr",
+  "name": "xdr-js-serialize",
   "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/kochavalabs/js-xdr.git"
+    "url": "git+ssh://git@github.com/kochavalabs/xdr-js-serialize.git"
   },
   "keywords": [],
   "author": "",
