@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "description": "",
   "main": "dist/index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "npm run lint && babel src -d dist",
     "test": "npm run lint && ./node_modules/.bin/mocha --require babel-register \"test/**/*.js\"",
@@ -13,7 +15,9 @@
     "type": "git",
     "url": "git+ssh://git@github.com/kochavalabs/xdr-js-serialize.git"
   },
-  "keywords": ["xdr"],
+  "keywords": [
+    "xdr"
+  ],
   "author": "KochavaLabs",
   "license": "MIT",
   "devDependencies": {

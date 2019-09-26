@@ -1,5 +1,7 @@
 # XDR JS Serialize
 
+[![CircleCI](https://circleci.com/gh/kochavalabs/xdr-js-serialize.svg?style=svg)](https://circleci.com/gh/kochavalabs/xdr-js-serialize)
+
 Xdr-js-serialize is a library for facilitating (de)serialization between the
 [XDR](https://en.wikipedia.org/wiki/External_Data_Representation) format and
 Javascript Dictionaries.
