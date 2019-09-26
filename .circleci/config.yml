@@ -43,14 +43,8 @@ jobs:
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
-          name: ls
-          command: ls
-      - run:
-          name: Config Git
-          command: git config --global user.email circleci@circleci && git config --global user.name CircleCI
-      - run:
           name: Set Develop Version
-          command: git rev-parse develop | cut -c1-10 | xargs -I[] npm version prerelease --preid=dev-[]
+          command: git rev-parse develop | cut -c1-10 | xargs ./node_modules/package-tagger/index.js
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > .npmrc
