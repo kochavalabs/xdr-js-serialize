@@ -44,7 +44,7 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Set Develop Version
-          command: git rev-parse develop | cut -c1-10 | xargs -I[] ./node_modules/package-tagger/index.js dev-[]
+          command: git rev-parse develop | cut -c1-10 | xargs -I[] ./node_modules/package-tagger/index.js dev.[]
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > .npmrc
