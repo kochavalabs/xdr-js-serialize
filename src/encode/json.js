@@ -15,7 +15,7 @@ function writeCSV (values, io, enc) {
 
 class JsonEncode {
   Str (value, io) {
-    io.write(Buffer.from(`"${value}"`, 'ascii'))
+    io.write(Buffer.from(`${JSON.stringify(value)}`, 'ascii'))
   }
   Option (value, io) {
     let opt = 0
