@@ -2,6 +2,7 @@ import BufferIO from '../io/buffer.js'
 import Long from 'long'
 
 const quote = 34
+const esc = 92
 const lBrace = 123
 const rBrace = 125
 const lBracket = 91
@@ -24,13 +25,17 @@ function scanFullStruct (io) {
 
 function scanQuotes (io) {
   let skip = 0
+  let prev1 = 0
+  let prev2 = 0
   return io.scanRead((c) => {
-    if (c === quote) skip++
+    if (c === quote && prev1 !== esc && prev2 !== esc) skip++
     if (skip === 2) {
       return true
     }
+    prev2 = prev1
+    prev2 = c
     return false
-  }).toString('ascii').replace(/(^")|("$)/g, '')
+  }).toString('ascii').replace(/(^")|("$)|(\\)/g, '')
 }
 
 function scanChar (io, chr) {

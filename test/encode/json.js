@@ -39,6 +39,7 @@ const testUnion = new types.Union(testEnum,
 
 const passTests = [
   { n: 'String', t: new types.Str('hello'), e: '"hello"' },
+  { n: 'String Escape', t: new types.Str('"hello"'), e: '"\\"hello\\""' },
   { n: 'Opt Null', t: new types.Option(), e: '{"opt":0,"value":""}' },
   { n: 'Opt Val', t: new types.Option(types.Int, new types.Int(1)), e: '{"opt":1,"value":1}' },
   { n: 'UInt', t: new types.UInt(1), e: '1' },

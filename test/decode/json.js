@@ -25,6 +25,7 @@ const testUnion = new types.Union(testEnum,
 
 const passTests = [
   { n: 'String', t: new types.Str('', 7), io: '"hello"', e: 'hello' },
+  { n: 'String', t: new types.Str('', 12), io: '"\\"hello\\""', e: '"hello"' },
   { n: 'Option false', t: new types.Option(), io: '{"opt":0,"value":""}', e: null },
   { n: 'Option true', t: new types.Option(new types.Str()), io: '{"opt":1,"value":"qwer"}', e: new types.Str('qwer') },
   { n: 'UInt', t: new types.UInt(), io: '3', e: Buffer.from([0, 0, 0, 3]) },
