@@ -41,7 +41,7 @@ class JsonEncode {
     io.write(Buffer.from(`"${toWrite}"`, 'ascii'))
   }
   Int (value, io) {
-    const result = value.readInt32BE()
+    const result = value.readInt32BE(0)
     io.write(Buffer.from(`${result}`, 'ascii'))
   }
   Bool (value, io) {
@@ -80,10 +80,10 @@ class JsonEncode {
     io.write(Buffer.from(`"${stringValue}"`, 'ascii'))
   }
   Float (value, io) {
-    io.write(Buffer.from(value.readFloatBE().toString(), 'ascii'))
+    io.write(Buffer.from(value.readFloatBE(0).toString(), 'ascii'))
   }
   Double (value, io) {
-    io.write(Buffer.from(value.readDoubleBE().toString(), 'ascii'))
+    io.write(Buffer.from(value.readDoubleBE(0).toString(), 'ascii'))
   }
   Union (enumT, value, io) {
     io.write(Buffer.from('{"enum":', 'ascii'))
