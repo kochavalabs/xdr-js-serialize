@@ -1,13 +1,15 @@
 version: 2.1
 
-defaults: &defaults
-  working_directory: ~/repo
-  docker:
-    - image: circleci/node:latest
+
+executors:
+  node-latest:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:latest
 
 jobs:
   init:
-    <<: *defaults
+    executor: node-latest
     steps:
       - checkout
       - run:
@@ -34,7 +36,7 @@ jobs:
             - ~/.build_tools
 
   test:
-    <<: *defaults
+    executor: node-latest
     steps:
       - checkout
       - restore_cache:
@@ -47,7 +49,7 @@ jobs:
           command: npm test
 
   publish-dev:
-    <<: *defaults
+    executor: node-latest
     steps:
       - checkout
       - restore_cache:
@@ -63,7 +65,7 @@ jobs:
           command: npm publish --tag develop
 
   publish-latest:
-    <<: *defaults
+    executor: node-latest
     steps:
       - checkout
       - restore_cache:
