@@ -20,12 +20,17 @@ jobs:
           if [[ "$CIRCLE_BRANCH" =~ release/v.* ]]; then
             ~/.build_tools/node/node_modules/kl-ci-tools/dist/bin.js deps | xargs -I[] npm install []@latest
           fi
+      - run:
+          name: npm build
+          command: npm run build
       - save_cache:
           key: git-sha-{{ .Revision }}{{ .Branch }}
           paths:
+            - dist
             - package.json
             - node_modules
             - ~/.build_tools
+
   test:
     <<: *defaults
     steps:
@@ -33,22 +38,11 @@ jobs:
       - restore_cache:
           key: git-sha-{{ .Revision }}{{ .Branch }}
       - run:
-          name: npm build
-          command: npm run build
-      - run:
           name: lint
           command: npm run lint
       - run:
           name: test
           command: npm test
-      - save_cache:
-          key: git-sha-{{ .Revision }}{{ .Branch }}
-          paths:
-            - package.json
-            - dist
-            - node_modules
-            - ~/.build_tools
-
 
   publish-dev:
     <<: *defaults
