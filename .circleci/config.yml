@@ -16,7 +16,9 @@ jobs:
       - run:
           name: install ci tools
           command: 'mkdir -p ~/.build_tools/node && npm install --prefix ~/.build_tools/node kl-ci-tools'
-      - run: |
+      - run:
+          name: update dependencies if releasing
+          command: |
           if [[ "$CIRCLE_BRANCH" =~ release/v.* ]]; then
             ~/.build_tools/node/node_modules/kl-ci-tools/dist/bin.js deps | xargs -I[] npm install []@latest
           fi
