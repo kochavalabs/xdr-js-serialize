@@ -19,9 +19,9 @@ jobs:
       - run:
           name: update dependencies if releasing
           command: |
-          if [[ "$CIRCLE_BRANCH" =~ release/v.* ]]; then
-            ~/.build_tools/node/node_modules/kl-ci-tools/dist/bin.js deps | xargs -I[] npm install []@latest
-          fi
+            if [[ "$CIRCLE_BRANCH" =~ release/v.* ]]; then
+              ~/.build_tools/node/node_modules/kl-ci-tools/dist/bin.js deps | xargs -I[] npm install []@latest
+            fi
       - run:
           name: npm build
           command: npm run build
