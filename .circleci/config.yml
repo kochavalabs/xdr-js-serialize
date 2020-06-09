@@ -83,14 +83,17 @@ jobs:
           name: commit updates
           command: git add -A && git commit -m "Dependency/Version update for $CIRCLE_BRANCH"
       - run:
-          name: pull latest from master
-          command: git pull --no-edit -Xours --rebase origin master
-      - run:
           name: update master
-          command: git checkout master && git rebase -Xtheirs $CIRCLE_BRANCH && git push origin master
+          command: git rebase -Xtheirs origin/master && git push origin $CIRCLE_BRANCH:master
       - run:
           name: authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > .npmrc
+      - run:
+          name: tag release
+          command: |
+            env GIT_TAG=$(echo $CIRCLE_BRANCH | sed 's:release/::')
+            git tag $GIT_TAG
+            git push --set-upstream origin $GIT_TAG
       - run:
           name: publish package
           command: npm publish --tag latest
