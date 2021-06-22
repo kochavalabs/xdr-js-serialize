@@ -32,14 +32,14 @@ function getUnion () {
 describe('Union constructor', () => {
   it('initial values set', () => {
     const u = new Union()
-    expect(u.enum).to.deep.equal(new Enum())
-    expect(u.value).to.deep.equal(new Void())
+    expect(u.type).to.deep.equal(new Enum())
+    expect(u.data).to.deep.equal(new Void())
   })
 
   it('passed size and type', () => {
     const u = getUnion()
-    expect(u.enum).to.deep.equal(getEnum())
-    expect(u.value).to.deep.equal(new Int())
+    expect(u.type).to.deep.equal(getEnum())
+    expect(u.data).to.deep.equal(new Int())
   })
 
   it('throws with bad values', () => {
@@ -53,7 +53,7 @@ describe('Union read', () => {
     const u = getUnion()
     const io = {}
     expect(u.read(io, dec)).to.deep.equal(new UInt())
-    expect(u.value).to.deep.equal(new UInt())
+    expect(u.data).to.deep.equal(new UInt())
     expect(dec.Union.calledWith(getEnum(), u.enumTypes, io)).to.equal(true)
   })
 })
