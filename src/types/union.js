@@ -4,23 +4,23 @@ import Void from './void.js'
 
 class Union {
   constructor (enumT = null, enumTypes = { 'None': () => { return new Void() } }) {
-    this.enum = enumT || new Enum()
+    this.type = enumT || new Enum()
     this.enumTypes = enumTypes
-    for (const key in this.enum.values) {
-      if (!(this.enum.values[key] in this.enumTypes)) {
+    for (const key in this.type.values) {
+      if (!(this.type.values[key] in this.enumTypes)) {
         throw new Error('Mismatch between enumTypes and enum values')
       }
     }
-    this.value = enumTypes[this.enum.toString()]()
+    this.data = enumTypes[this.type.toString()]()
   }
 
   read (io, decoder) {
-    this.value = decoder.Union(this.enum, this.enumTypes, io)
-    return this.value
+    this.data = decoder.Union(this.type, this.enumTypes, io)
+    return this.data
   }
 
   write (io, encoder) {
-    encoder.Union(this.enum, this.value, io)
+    encoder.Union(this.type, this.data, io)
   }
 }
 
