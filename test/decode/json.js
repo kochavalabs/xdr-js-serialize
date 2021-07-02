@@ -23,7 +23,7 @@ const testUnion = new types.Union(testEnum,
   }
 )
 
-const passTests = [
+const greenTests = [
   { n: 'String', t: new types.Str('', 7), io: '"hello"', e: 'hello' },
   { n: 'String', t: new types.Str('', 12), io: '"\\"hello\\""', e: '"hello"' },
   { n: 'Option false', t: new types.Option(), io: '{"opt":0,"value":""}', e: null },
@@ -55,18 +55,36 @@ const passTests = [
   { n: 'Struct Empty Str', t: new types.Struct(['1', '2'], [new types.Str(), new types.Str()]), io: '{"1":"","2":""}', e: [new types.Str(''), new types.Str('')] }
 ]
 
+const redTests = [
+  { n: 'Wrong Struct Basic', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3,"2":"2",}', e: [new types.Int(-3), new types.Hyper(2)] }
+]
+
+function executeTest (value) {
+  const io = new BufferIO()
+  io.write(Buffer.from(value.io), 'ascii')
+  const result = value.t.read(io, dec)
+  if (!result) {
+    expect(result).to.equal(value.e)
+  } else {
+    expect(result).to.deep.equal(value.e)
+  }
+  expect(() => { io.read(Buffer.alloc(1)) }).to.throw()
+}
+
+/*
 describe('Json Decode Pass', () => {
   itParam(
     '${value.n}', // eslint-disable-line
-    passTests, (value) => {
-      const io = new BufferIO()
-      io.write(Buffer.from(value.io), 'ascii')
-      const result = value.t.read(io, dec)
-      if (!result) {
-        expect(result).to.equal(value.e)
-      } else {
-        expect(result).to.deep.equal(value.e)
-      }
-      expect(() => { io.read(Buffer.alloc(1)) }).to.throw()
+    greenTests, (value) => {
+      executeTest(value)
+    })
+})
+*/
+
+describe('Json Decode Error', () => {
+  itParam(
+    '${value.n}', // eslint-disable-line
+    redTests, (value) => {
+      executeTest(value)
     })
 })
