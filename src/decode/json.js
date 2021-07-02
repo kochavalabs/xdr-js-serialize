@@ -208,8 +208,8 @@ class JsonDecode {
   Union (enumT, enumTypes, io) {
     const union = JSON.parse(scanFullStruct(io).toString('ascii'))
     const newIO = new BufferIO()
-    newIO.write(Buffer.from(JSON.stringify(union.value)), 'ascii')
-    enumT.value = union.enum
+    newIO.write(Buffer.from(JSON.stringify(union.data)), 'ascii')
+    enumT.value = union.type
     const result = enumTypes[enumT.toString()]()
     result.read(newIO, this)
     return result

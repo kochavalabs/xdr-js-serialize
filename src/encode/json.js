@@ -86,9 +86,9 @@ class JsonEncode {
     io.write(Buffer.from(value.readDoubleBE(0).toString(), 'ascii'))
   }
   Union (enumT, value, io) {
-    io.write(Buffer.from('{"enum":', 'ascii'))
+    io.write(Buffer.from('{"type":', 'ascii'))
     enumT.write(io, this)
-    io.write(Buffer.from(',"value":', 'ascii'))
+    io.write(Buffer.from(',"data":', 'ascii'))
     value.write(io, this)
     io.write(Buffer.from('}', 'ascii'))
   }
