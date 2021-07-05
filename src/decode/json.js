@@ -215,9 +215,6 @@ class JsonDecode {
     return result
   }
   Struct (keys, values, io) {
-    console.log(keys)
-    console.log(values)
-    console.log(io)
     scanChar(io, lBrace)
     for (let i = 0; i < keys.length; i++) {
       const key = scanQuotes(io)
@@ -228,31 +225,18 @@ class JsonDecode {
       scanChar(io, colon)
       values[index].read(io, this)
       if (i !== keys.length - 1) {
-        let test = scanDict(io)[0]
-        if (test !== comma) {
-          throw new Error('Invalidly formatted dict, missing comma on ' + scanDict(io))
+        let test = scanDict(io)
+        if (test[0] !== comma) {
+          throw new Error('Invalidly formatted dict when parsing: ' + test)
         }
       }
     }
-    let result = scanDict(io)[0]
-    if (result !== rBrace) {
-      throw new Error('Invalidly formatted dict, missing right brace on ' + this.readValues(values, keys, io))
+    let result = scanDict(io)
+
+    if (result[0] !== rBrace) {
+      throw new Error('Invalidly formatted dict' + result)
     }
     return values
-  }
-  readValues(values, keys, io) {
-    console.log("keys " + keys)
-    console.log("values " + JSON.stringify(values))
-    console.log("io" + JSON.stringify(io))
-    console.log("keys.length " + keys.length)
-    let str = ""
-    for (let i = 0; i < keys.length; i++) {
-      console.log("i " + i)
-      console.log("str " + str)
-      str = str + values[i].read(io, this)
-      console.log("str after concat " + str)
-    }
-    return str
   }
 
   Enum (io) {

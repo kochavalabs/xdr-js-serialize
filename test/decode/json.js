@@ -56,22 +56,27 @@ const greenTests = [
 ]
 
 const redTests = [
-  { n: 'Wrong Struct Basic', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3,"2":"2",}', e: [new types.Int(-3), new types.Hyper(2)] }
+  { n: 'Wrong Struct Basic no comma', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3,"2":"2"}', e: [new types.Int(-3), new types.Hyper(2)], errMsg: 'Error: Invalidly formatted dict' },
+  { n: 'Wrong Struct Basic no key', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3"a":"2"}', e: [new types.Int(-3), new types.Hyper(2)], errMsg: 'Error: Invalidly formatted dict when parsing: "a":"2"}' },
+  { n: 'Wrong Struct Basic wrong type', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3,"2":"a"}', e: [new types.Int(-3), new types.Hyper(2)], errMsg: 'AssertionError: expected [ Array(2) ] to deeply equal [ Array(2) ]' }
 ]
 
 function executeTest (value) {
-  const io = new BufferIO()
-  io.write(Buffer.from(value.io), 'ascii')
-  const result = value.t.read(io, dec)
-  if (!result) {
-    expect(result).to.equal(value.e)
-  } else {
-    expect(result).to.deep.equal(value.e)
+  try {
+    const io = new BufferIO()
+    io.write(Buffer.from(value.io), 'ascii')
+    const result = value.t.read(io, dec)
+    if (!result) {
+      expect(result).to.equal(value.e)
+    } else {
+      expect(result).to.deep.equal(value.e)
+    }
+    expect(() => { io.read(Buffer.alloc(1)) }).to.throw()
+  } catch (ex) {
+    expect(value.errMsg).to.equal(ex.toString())
   }
-  expect(() => { io.read(Buffer.alloc(1)) }).to.throw()
 }
 
-/*
 describe('Json Decode Pass', () => {
   itParam(
     '${value.n}', // eslint-disable-line
@@ -79,7 +84,6 @@ describe('Json Decode Pass', () => {
       executeTest(value)
     })
 })
-*/
 
 describe('Json Decode Error', () => {
   itParam(
