@@ -225,18 +225,20 @@ class JsonDecode {
       scanChar(io, colon)
       values[index].read(io, this)
       if (i !== keys.length - 1) {
-        let test = scanDict(io)[0]
-        if (test !== comma) {
-          throw new Error('Invalidly formatted dict')
+        let test = scanDict(io)
+        if (test[0] !== comma) {
+          throw new Error('Invalidly formatted dict when parsing: ' + test)
         }
       }
     }
-    let result = scanDict(io)[0]
-    if (result !== rBrace) {
-      throw new Error('Invalidly formatted dict')
+    let result = scanDict(io)
+
+    if (result[0] !== rBrace) {
+      throw new Error('Invalidly formatted dict' + result)
     }
     return values
   }
+
   Enum (io) {
     return Number(scanNumber(io))
   }
