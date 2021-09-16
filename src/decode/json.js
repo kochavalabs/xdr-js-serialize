@@ -42,6 +42,39 @@ function scanChar (io, chr) {
   return io.scanRead((c) => c === chr)
 }
 
+// Scan up to the designated character or "null"
+// returns true if null was found, false otherwise
+function scanCharOrNull (io, chr) {
+  let text = ''
+
+  let found = io.scanRead((c) => {
+    switch (c) {
+      case chr: // Found character
+        return true
+      case 110: // n
+        text += 'n'
+        return false
+      case 117: // u
+        text += 'u'
+        return false
+      case 108: // l
+        if (text === 'nul') {
+          return true
+        }
+        text += 'l'
+        return false
+      default:
+        return false
+    }
+  }).toString()
+
+  if (found === 'null') {
+    return true
+  }
+
+  return false
+}
+
 function scanNumber (io) {
   return io.scanRead((c) => {
     switch (c) {
@@ -124,7 +157,14 @@ class JsonDecode {
     return Buffer.from(Long.fromString(value, false).toBytesBE())
   }
   FixedArray (length, typeFunc, io) {
-    scanChar(io, lBracket)
+    let isNull = scanCharOrNull(io, lBracket)
+    if (isNull && length === 0) {
+      // found null, allow with length 0
+      return []
+    } else if (isNull) {
+      throw new Error('FixedArray found null but expected array of length: ' + length)
+    }
+
     const values = []
     for (let i = 0; i < length - 1; i++) {
       const val = typeFunc()
@@ -156,12 +196,19 @@ class JsonDecode {
     return result
   }
   VarArray (typeFunc, io) {
-    let sChar = scanChar(io, lBracket)
-    const values = []
+    if (scanCharOrNull(io, lBracket)) {
+      // found null
+      return []
+    }
+
+    // Check for empty array
     if (io.peek() === rBracket) {
       io.read(Buffer.alloc(1))
       return []
     }
+
+    const values = []
+    var sChar
     while (sChar !== rBracket) {
       const val = typeFunc()
       val.read(io, this)

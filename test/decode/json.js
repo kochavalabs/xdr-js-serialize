@@ -37,12 +37,14 @@ const greenTests = [
   { n: 'FixedArray Default', t: new types.FixedArray(), io: '[100]', e: [new types.Int(100)] },
   { n: 'FixedArray Basic', t: new types.FixedArray(3, () => new types.Int()), io: '[1,2,33]', e: [new types.Int(1), new types.Int(2), new types.Int(33)] },
   { n: 'FixedArray Empty', t: new types.FixedArray(0, () => new types.UInt()), io: '[]', e: [] },
+  { n: 'FixedArray Null', t: new types.FixedArray(0, () => new types.UInt()), io: 'null', e: [] },
   { n: 'FixedOpaque No Padding', t: new types.FixedOpaque(8), io: '"0001020304050607"', e: Buffer.from([0, 1, 2, 3, 4, 5, 6, 7]) },
   { n: 'FixedOpaque Padding', t: new types.FixedOpaque(9), io: '"000000000000000000"', e: Buffer.alloc(9) },
   { n: 'Void', t: new types.Void(), io: '""', e: null },
   { n: 'VarArray Default', t: new types.VarArray(), io: '[100]', e: [new types.Int(100)] },
   { n: 'VarArray Basic', t: new types.VarArray(3, () => new types.Int()), io: '[6,22,-123]', e: [new types.Int(6), new types.Int(22), new types.Int(-123)] },
   { n: 'VarArray Empty', t: new types.VarArray(3, () => new types.Int()), io: '[]', e: [] },
+  { n: 'VarArray Null', t: new types.VarArray(3, () => new types.Int()), io: 'null', e: [] },
   { n: 'VarOpaque', t: new types.VarOpaque(8), io: '"AAECAwQFBgc="', e: Buffer.from([0, 1, 2, 3, 4, 5, 6, 7]) },
   { n: 'Float', t: new types.Float(), io: '1.0', e: Buffer.from([0x3f, 0x80, 0, 0]) },
   { n: 'Double', t: new types.Double(), io: '1.0', e: Buffer.from([0x3f, 0xf0, 0, 0, 0, 0, 0, 0]) },
@@ -58,7 +60,8 @@ const greenTests = [
 const redTests = [
   { n: 'Wrong Struct Basic no comma', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3,"2":"2"}', e: [new types.Int(-3), new types.Hyper(2)], errMsg: 'Error: Invalidly formatted dict' },
   { n: 'Wrong Struct Basic no key', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3"a":"2"}', e: [new types.Int(-3), new types.Hyper(2)], errMsg: 'Error: Invalidly formatted dict when parsing: "a":"2"}' },
-  { n: 'Wrong Struct Basic wrong type', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3,"2":"a"}', e: [new types.Int(-3), new types.Hyper(2)], errMsg: 'AssertionError: expected [ Array(2) ] to deeply equal [ Array(2) ]' }
+  { n: 'Wrong Struct Basic wrong type', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3,"2":"a"}', e: [new types.Int(-3), new types.Hyper(2)], errMsg: 'AssertionError: expected [ Array(2) ] to deeply equal [ Array(2) ]' },
+  { n: 'Wrong length for Null fixed array', t: new types.FixedArray(2, () => new types.UInt()), io: 'null', e: [], errMsg: 'Error: FixedArray found null but expected array of length: 2' }
 ]
 
 function executeTest (value) {
