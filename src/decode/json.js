@@ -274,7 +274,7 @@ class JsonDecode {
       if (i !== keys.length - 1) {
         let test = scanDict(io)
         if (test[0] !== comma) {
-          throw new Error('Invalidly formatted dict when parsing: ' + test)
+          throw new Error('Invalidly formatted dict when parsing: ' + key)
         }
       }
     }
