@@ -59,7 +59,7 @@ const greenTests = [
 
 const redTests = [
   { n: 'Wrong Struct Basic no comma', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3,"2":"2"}', e: [new types.Int(-3), new types.Hyper(2)], errMsg: 'Error: Invalidly formatted dict' },
-  { n: 'Wrong Struct Basic no key', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3"a":"2"}', e: [new types.Int(-3), new types.Hyper(2)], errMsg: 'Error: Invalidly formatted dict when parsing: "a":"2"}' },
+  { n: 'Wrong Struct Basic no key', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3"a":"2"}', e: [new types.Int(-3), new types.Hyper(2)], errMsg: 'Error: Invalidly formatted dict when parsing: 1' },
   { n: 'Wrong Struct Basic wrong type', t: new types.Struct(['1', '2'], [new types.Int(1), new types.Hyper(2)]), io: '{"1":-3,"2":"a"}', e: [new types.Int(-3), new types.Hyper(2)], errMsg: 'AssertionError: expected [ Array(2) ] to deeply equal [ Array(2) ]' },
   { n: 'Wrong length for Null fixed array', t: new types.FixedArray(2, () => new types.UInt()), io: 'null', e: [], errMsg: 'Error: FixedArray found null but expected array of length: 2' }
 ]
