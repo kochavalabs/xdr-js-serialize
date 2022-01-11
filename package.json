@@ -1,6 +1,6 @@
 {
   "name": "xdr-js-serialize",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Library that does the (de)serialization between xdr and JavaScript Dicts.",
   "main": "dist/index.js",
   "files": [
