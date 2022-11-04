@@ -33,10 +33,6 @@ console.log(string.toXDR('hex'))
 // 0000000461736466
 ```
 
-## License
-
-[MIT](https://choosealicense.com/licenses/mit/)
-
 ## Notes
 
 - The XDR Quad type is currently not supported
